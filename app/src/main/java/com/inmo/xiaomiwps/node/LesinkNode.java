@@ -8,13 +8,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.NonNull;
 
 import com.inmo.xiaomiwps.utils.AutoControlUtil;
+import com.inmo.xiaomiwps.utils.LogUtils;
 
 import java.util.List;
 
@@ -36,19 +36,19 @@ public class LesinkNode implements Node {
 
     @Override
     public void init() {
-        Log.d(TAG, "LesinkNode init");
+        LogUtils.d(TAG, "LesinkNode init");
         controlUtil = new AutoControlUtil();
         initThread();
     }
 
     @Override
     public void processKeyEvent(KeyEvent event) {
-        Log.d(TAG, "LesinkNode processKeyEvent:" + event.getKeyCode() + ",currentActivityName:" + getCurrentActivityName(context));
+        LogUtils.d(TAG, "LesinkNode processKeyEvent:" + event.getKeyCode() + ",currentActivityName:" + getCurrentActivityName(context));
         if (TextUtils.isEmpty(getCurrentActivityName(context))) {
             return;
         }
         if (TextUtils.equals(getCurrentActivityName(context), LESINK_ACTIVITY)) {
-            Log.d(TAG, "equal");
+            LogUtils.d(TAG, "equal");
             if (event.getKeyCode() == KEYCODE_BACK) {
                 handler.sendEmptyMessageDelayed(BACK_EVENT, 100);
             }
@@ -74,7 +74,7 @@ public class LesinkNode implements Node {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == KEYCODE_BACK) {
-                    Log.d(TAG, "controlUtil.simulateKey(KeyEvent.KEYCODE_BACK);");
+                    LogUtils.d(TAG, "controlUtil.simulateKey(KeyEvent.KEYCODE_BACK);");
                     controlUtil.simulateKey(KEYCODE_BACK);
                 }
             }
@@ -84,12 +84,12 @@ public class LesinkNode implements Node {
 
     @Override
     public void processAccessibilityEvent(AccessibilityEvent event) {
-        Log.d(TAG, "LesinkNode processAccessibilityEvent:" + event.getPackageName());
+        LogUtils.d(TAG, "LesinkNode processAccessibilityEvent:" + event.getPackageName());
     }
 
     @Override
     public void destroy() {
-        Log.d(TAG, "LesinkNode destroy");
+        LogUtils.d(TAG, "LesinkNode destroy");
         if (mHandlerThread != null) {
             mHandlerThread.quitSafely();
         }
