@@ -183,7 +183,7 @@ public class XiaomiWpsNode implements Node {
         return ProcessUtils.getForegroundProcessName(context).contains(XIAOMI_DOC_PAGE);
     }
 
-    private static final int CHILD_LEVEL = 6;
+    private static final int CHILD_LEVEL = 4;
 
     /**
      * 是否需要点击播放按钮
@@ -268,7 +268,8 @@ public class XiaomiWpsNode implements Node {
                     case CLICK_ENTER_KEY:
                         LogUtils.i(TAG, "testquit CLICK_ENTER_KEY");
                         if (isXiaoMiWpsRun()) {
-                            controlUtil.simulateClick(159, 369);
+//                            controlUtil.simulateClick(159, 369);
+                            controlUtil.simulateClick(270, 366);
                         }
                         break;
                     case CLICK_NEXT_PAGE:
