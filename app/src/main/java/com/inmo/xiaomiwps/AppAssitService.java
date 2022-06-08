@@ -1,33 +1,19 @@
 package com.inmo.xiaomiwps;
 
 import android.accessibilityservice.AccessibilityService;
-import android.app.Instrumentation;
-import android.app.usage.UsageEvents;
-import android.app.usage.UsageStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
-import android.os.SystemClock;
-import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
+import com.inmo.xiaomiwps.node.LesinkNode;
 import com.inmo.xiaomiwps.node.Node;
 import com.inmo.xiaomiwps.node.XiaomiWpsNode;
 import com.inmo.xiaomiwps.utils.LogUtils;
 import com.inmo.xiaomiwps.utils.ProcessUtils;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +27,7 @@ public class AppAssitService extends AccessibilityService {
     private static final String SENSOR_CONTROL = "com.inmoglass.sensorcontrol";//屏蔽头控窗体变化
     private Map<String, Node> nodeMap = new HashMap<>();
     private Node xiaoMiWpsNode;
+    private Node lesinkNode;
 
     @Override
     public void onCreate() {
@@ -55,7 +42,7 @@ public class AppAssitService extends AccessibilityService {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            Log.i(TAG, "rootname: " + ProcessUtils.getForegroundProcessName(context) + "ss: " + (5/0));
+            Log.i(TAG, "rootname: " + ProcessUtils.getForegroundProcessName(context) + "ss: " + (5 / 0));
         }
     };
 
@@ -91,6 +78,8 @@ public class AppAssitService extends AccessibilityService {
     private void initNodes() {
         xiaoMiWpsNode = new XiaomiWpsNode(this);
         nodeMap.put(XiaomiWpsNode.XIAOMI_WPS_PAGE, xiaoMiWpsNode);
+        lesinkNode = new LesinkNode(this);
+        nodeMap.put(LesinkNode.LESINK_PAGE, lesinkNode);
 
         for (Node node : nodeMap.values()) {
             node.init();
