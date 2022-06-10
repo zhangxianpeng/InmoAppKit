@@ -1,6 +1,7 @@
 package com.inmo.xiaomiwps.node;
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import com.inmo.xiaomiwps.App;
 import com.inmo.xiaomiwps.R;
 import com.inmo.xiaomiwps.WindowsChangeEvent;
+import com.inmo.xiaomiwps.utils.APPUtil;
 import com.inmo.xiaomiwps.utils.AutoControlUtil;
 import com.inmo.xiaomiwps.utils.LogUtils;
 import com.inmo.xiaomiwps.utils.ProcessUtils;
@@ -45,6 +47,7 @@ public class XiaomiWpsNode implements Node {
     WindowManager windowManager;
     WindowManager.LayoutParams layoutParams;
     private View tipView;
+    private APPUtil appUtil;
 
     public XiaomiWpsNode(Context context) {
         this.context = context;
@@ -53,6 +56,7 @@ public class XiaomiWpsNode implements Node {
     @Override
     public void init() {
         controlUtil = new AutoControlUtil();
+        appUtil = new APPUtil(context);
         initThread();
     }
 
@@ -92,12 +96,15 @@ public class XiaomiWpsNode implements Node {
                 }
 
                 break;
-//            case BACK:
-//                if(handler.hasMessages(SYSTEM_HOME)) {
-//                    handler.removeMessages(SYSTEM_HOME);
+            case BACK:
+//                if(!isXiaoMiWpsRun()) {
+//                    return;
 //                }
-//                handler.sendEmptyMessageDelayed(SYSTEM_HOME, 200);
-//                break;
+//                if(handler.hasMessages(KILL_XIAOMI_WPS)) {
+//                    handler.removeMessages(KILL_XIAOMI_WPS);
+//                }
+//                handler.sendEmptyMessageDelayed(KILL_XIAOMI_WPS, 300);
+                break;
         }
     }
 
@@ -323,6 +330,7 @@ public class XiaomiWpsNode implements Node {
     private static final int SYSTEM_EXIT = 0x04;
     private static final int SYSTEM_HOME = 0x10;
     private static final int XIAOMI_CRASH = 0x15;
+    private static final int KILL_XIAOMI_WPS = 0x16;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -337,6 +345,11 @@ public class XiaomiWpsNode implements Node {
                     mClickHandler.removeCallbacksAndMessages(null);
                     handler.removeCallbacksAndMessages(null);
                     removeTipView();
+                    if(appUtil != null) {
+//                        appUtil.forceStopPackage(XIAOMI_WPS_PAGE);
+                        appUtil.forceStopPackage(XIAOMI_WPS);
+//                        appUtil.forceStopPackage("cn.wps.moffice_eng.xiaomi.lite:presentation1");
+                    }
                     break;
                 case NEED_CLICKPLAY:
                     if (isNeedToEnterPlay()) {
@@ -351,6 +364,11 @@ public class XiaomiWpsNode implements Node {
                     break;
                 case XIAOMI_CRASH:
                     mClickHandler.sendEmptyMessage(KeyEvent.KEYCODE_HOME);
+                    break;
+                case KILL_XIAOMI_WPS:
+                    if(appUtil != null) {
+                        appUtil.closeApplication(XIAOMI_WPS_PAGE);
+                    }
                     break;
             }
         }
