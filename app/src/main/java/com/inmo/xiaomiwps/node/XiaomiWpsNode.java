@@ -346,8 +346,8 @@ public class XiaomiWpsNode implements Node {
                     handler.removeCallbacksAndMessages(null);
                     removeTipView();
                     if(appUtil != null) {
-//                        appUtil.forceStopPackage(XIAOMI_WPS_PAGE);
-                        appUtil.forceStopPackage(XIAOMI_WPS);
+                        appUtil.forceStopPackage(XIAOMI_WPS_PAGE);
+//                        appUtil.forceStopPackage(XIAOMI_WPS);
 //                        appUtil.forceStopPackage("cn.wps.moffice_eng.xiaomi.lite:presentation1");
                     }
                     break;
