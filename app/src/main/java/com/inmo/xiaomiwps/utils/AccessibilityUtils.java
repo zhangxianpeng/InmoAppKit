@@ -56,12 +56,14 @@ public class AccessibilityUtils {
         TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
 
         //如果服务总开关没打开，则打开开关
-        if (accessibilityEnabled == 0) {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.ACCESSIBILITY_ENABLED, 1);
-        }
+//        if (accessibilityEnabled == 0) {
+//            Settings.Secure.putInt(context.getContentResolver(),
+//                    Settings.Secure.ACCESSIBILITY_ENABLED, 1);
+//        }
+        Settings.Secure.putInt(context.getContentResolver(),
+                Settings.Secure.ACCESSIBILITY_ENABLED, 1);
 
-        if (accessibilityEnabled == 1) {
+//        if (accessibilityEnabled == 1) {
             Log.v(LogUtils.TAG, "***ACCESSIBILITY IS ENABLED*** -----------------");
             String currentAccessibilityList = getAppAccessibilityName(context);
             Log.v(LogUtils.TAG, "current running serviceName" + currentAccessibilityList);
@@ -92,10 +94,10 @@ public class AccessibilityUtils {
                         serviceName);
                 return true;
             }
-        } else {
-            Log.v(LogUtils.TAG, "***ACCESSIBILITY IS DISABLED***");
-        }
-        return false;
+//        } else {
+//            Log.v(LogUtils.TAG, "***ACCESSIBILITY IS DISABLED***");
+//        }
+//        return false;
     }
 
     private int getAccessibilityEnabled(Context context) {
