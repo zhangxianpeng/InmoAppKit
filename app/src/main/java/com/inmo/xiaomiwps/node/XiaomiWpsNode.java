@@ -338,13 +338,13 @@ public class XiaomiWpsNode implements Node {
             switch (msg.what) {
                 case ENTER_XIAOMIWPS:
 //                    Toast.makeText(context, "进入小米wps", Toast.LENGTH_SHORT).show();
-                    addTipView();
+//                    addTipView();
                     break;
                 case EXIT_XIAOMIWPS:
 //                    Toast.makeText(context, "退出小米wps", Toast.LENGTH_SHORT).show();
                     mClickHandler.removeCallbacksAndMessages(null);
                     handler.removeCallbacksAndMessages(null);
-                    removeTipView();
+//                    removeTipView();
                     if(appUtil != null) {
                         appUtil.forceStopPackage(XIAOMI_WPS_PAGE);
 //                        appUtil.forceStopPackage(XIAOMI_WPS);
