@@ -26,14 +26,14 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('../keystore/air_release_system.keystore')
+            storeFile file('../keystore/air2_debug_system.keystore')
             storePassword 'android'
             keyAlias 'android'
             keyPassword 'android'
         }
 
         debug {
-            storeFile file('../keystore/air_release_system.keystore')
+            storeFile file('../keystore/air2_debug_system.keystore')
             storePassword 'android'
             keyAlias 'android'
             keyPassword 'android'

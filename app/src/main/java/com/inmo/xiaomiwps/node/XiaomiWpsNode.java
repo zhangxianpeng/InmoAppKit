@@ -66,6 +66,7 @@ public class XiaomiWpsNode implements Node {
         switch (event.getKeyCode()) {
             case NEXT_PAGE:
             case KEYCODE_DPAD_DOWN_RIGHT:
+                // 下一页
                 LogUtils.i(TAG, "isXiaoMiDocRun: " + isXiaoMiDocRun());
                 if (isNeedToEnterPlay()) {
                     handler.removeMessages(NEED_CLICKPLAY);
@@ -82,6 +83,7 @@ public class XiaomiWpsNode implements Node {
                 break;
             case PRE_PAGE:
             case KEYCODE_DPAD_DOWN_LEFT:
+                // 上一页
                 if (isNeedToEnterPlay()) {
                     handler.removeMessages(NEED_CLICKPLAY);
                     handler.sendEmptyMessageDelayed(NEED_CLICKPLAY, 100);
@@ -104,6 +106,8 @@ public class XiaomiWpsNode implements Node {
 //                    handler.removeMessages(KILL_XIAOMI_WPS);
 //                }
 //                handler.sendEmptyMessageDelayed(KILL_XIAOMI_WPS, 300);
+                break;
+            default:
                 break;
         }
     }
