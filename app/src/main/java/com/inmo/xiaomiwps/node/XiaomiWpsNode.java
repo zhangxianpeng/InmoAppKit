@@ -343,6 +343,15 @@ public class XiaomiWpsNode implements Node {
                 case ENTER_XIAOMIWPS:
 //                    Toast.makeText(context, "进入小米wps", Toast.LENGTH_SHORT).show();
 //                    addTipView();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isNeedToEnterPlay()) {
+                                handler.removeMessages(NEED_CLICKPLAY);
+                                handler.sendEmptyMessageDelayed(NEED_CLICKPLAY, 100);
+                            }
+                        }
+                    }, 1500);
                     break;
                 case EXIT_XIAOMIWPS:
 //                    Toast.makeText(context, "退出小米wps", Toast.LENGTH_SHORT).show();
