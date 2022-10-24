@@ -27,6 +27,8 @@ import com.inmo.xiaomiwps.utils.ProcessUtils;
 
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN_LEFT;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN_RIGHT;
+import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
+import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
 
 /**
  * 监控xiaomiwps
@@ -65,7 +67,7 @@ public class XiaomiWpsNode implements Node {
         LogUtils.i(TAG, "onKeyEvent: " + event.getKeyCode());
         switch (event.getKeyCode()) {
             case NEXT_PAGE:
-            case KEYCODE_DPAD_DOWN_RIGHT:
+            case KEYCODE_DPAD_RIGHT:
                 // 下一页
                 LogUtils.i(TAG, "isXiaoMiDocRun: " + isXiaoMiDocRun());
                 if (isNeedToEnterPlay()) {
@@ -82,7 +84,7 @@ public class XiaomiWpsNode implements Node {
                 }
                 break;
             case PRE_PAGE:
-            case KEYCODE_DPAD_DOWN_LEFT:
+            case KEYCODE_DPAD_LEFT:
                 // 上一页
                 if (isNeedToEnterPlay()) {
                     handler.removeMessages(NEED_CLICKPLAY);
