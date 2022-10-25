@@ -25,10 +25,12 @@ import com.inmo.xiaomiwps.utils.LogUtils;
 import com.inmo.xiaomiwps.utils.ProcessUtils;
 
 
+import static android.view.KeyEvent.KEYCODE_DPAD_CENTER;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN_LEFT;
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN_RIGHT;
 import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
 import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
+import static android.view.KeyEvent.KEYCODE_ENTER;
 
 /**
  * 监控xiaomiwps
@@ -109,6 +111,13 @@ public class XiaomiWpsNode implements Node {
 //                }
 //                handler.sendEmptyMessageDelayed(KILL_XIAOMI_WPS, 300);
                 break;
+            case KEYCODE_ENTER:
+            case KEYCODE_DPAD_CENTER:
+                if(isNeedToEnterPlay()) {
+                    handler.removeMessages(ENTER_XIAOMIWPS);
+                    handler.sendEmptyMessageDelayed(ENTER_XIAOMIWPS, 100);
+                }
+                break;
             default:
                 break;
         }
@@ -131,8 +140,8 @@ public class XiaomiWpsNode implements Node {
                 if (!isFirstEnter) {
                     LogUtils.i(TAG, "enter xxxiaomi");
                     isFirstEnter = true;
-                    handler.removeMessages(ENTER_XIAOMIWPS);
-                    handler.sendEmptyMessageDelayed(ENTER_XIAOMIWPS, 100);
+//                    handler.removeMessages(ENTER_XIAOMIWPS);
+//                    handler.sendEmptyMessageDelayed(ENTER_XIAOMIWPS, 100);
 
                 }
 
